@@ -17,10 +17,6 @@
       "day": "monday",
       "reminder": true,
       "id": 3
-    },
-    {
-      "reminder": true,
-      "id": 4
     }
   ]
 }
