@@ -1,7 +1,10 @@
 import  React,{useState,useEffect} from 'react'
+import {BrowserRouter as Router , Route} from 'react-router-dom'
 import Header from './components/header'
+import Footer from './components/Footer'
 import Tasks from './components/Tasks'
 import AddTask from './components/AddTask'
+import About from './components/About'
 
 
 const App = () => {
@@ -24,11 +27,11 @@ const App = () => {
 }
 
 //Fetch Task
-const fetchTask = async(id)=>{
-  const res  = await fetch(`http://localhost:8000/tasks/${id}`)
-  const data = await res.json()
-  return data
-}
+//const fetchTask = async(id)=>{
+ // const res  = await fetch(`http://localhost:8000/tasks/${id}`)
+ // const data = await res.json()
+ // return data
+//}
 
 
 
@@ -74,16 +77,24 @@ const m =()=>{
 }
 
   return (
-    
+    <Router>
     <div className = 'container'>
       <Header
           onAdd={m }
           showAdd={showAddTask}
         />
-      { showAddTask && <AddTask onAdd = {addTask}/> }
-      {tasks.length > 0 ? <Tasks tasks={tasks} onDelete = {DeleteTask} OnToggle  = {Reminder}/> : 
-      <h2>You Are Right On Schedule !</h2>}
+      
+      <Route path='/' exact render={(props)=>(
+        <>
+        { showAddTask && <AddTask onAdd = {addTask}/> }
+        {tasks.length > 0 ? <Tasks tasks={tasks} onDelete = {DeleteTask} OnToggle  = {Reminder}/> : 
+        <h2>You Are Right On Schedule !</h2>}
+        </>
+      )}/>
+      <Route path='/About' component={About}/>
+      <Footer/>
     </div>
+    </Router>
   )
 }
 
